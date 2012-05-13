@@ -1,5 +1,5 @@
 This is where I backup my xmonad tiling window manager configuration.
 
-The config folder has a replica of the files I need, all withing the linux /usr folder tree
+The config folder has a replica of the files I need within the linux /usr folder tree, for setting up things like sessions, etc.
 
 To install, clone repository to ~/.xmonad and then either copy the config/usr folder to /usr, or create symlinks
