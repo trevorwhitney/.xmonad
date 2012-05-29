@@ -1,31 +1,25 @@
 import XMonad
-import XMonad.Config.Gnome
-import XMonad.Layout.NoBorders
-import XMonad.Layout.Gaps
-import XMonad.Hooks.DynamicLog
+import XMonad.Config.Bluetile
 import XMonad.Hooks.ManageDocks
+import XMonad.Layout.Gaps
+import XMonad.Util.Replace
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.EZConfig(additionalKeys)
-import System.IO
 
 myManageHook = composeAll . concat $
     [ [ className =? "Unity-2d-panel" --> doIgnore ]
     , [ resource =? "Do" --> doIgnore ]
-    ]
+	]
 
-myLayouts = gaps [(U, 24)] $ layoutHook gnomeConfig
+myLayouts = gaps [(U, 24)] $ layoutHook bluetileConfig
 
 main = do
-    xmonad $ gnomeConfig
+    xmonad $ bluetileConfig
         {
-            manageHook = myManageHook <+> manageHook gnomeConfig
-        ,   layoutHook = avoidStruts $ smartBorders $ layoutHook defaultConfig
-        ,   focusFollowsMouse = False
-        ,   modMask = mod4Mask     -- Rebind Mod to the Windows key
+            manageHook = myManageHook <+> manageHook bluetileConfig
+        ,   layoutHook = avoidStruts $ layoutHook bluetileConfig
         } `additionalKeys`
-        [   ((mod4Mask .|. shiftMask, xK_z), spawn "xscreensaver-command -lock")
-        ,   ((controlMask, xK_Print), spawn "sleep 0.2; scrot -s")
-        ,   ((0, xK_Print), spawn "scrot")
-        ,   ((mod4Mask, xK_b ), sendMessage ToggleStruts)
+        [   ((mod4Mask, xK_b ), sendMessage ToggleStruts)
         ,   ((mod4Mask, xK_p ), spawn "gnome-do")
         ]
+
